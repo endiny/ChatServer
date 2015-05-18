@@ -13,6 +13,8 @@
 #include <string>
 #include <map>
 #include <utility>
+#include <ctime>
+#include <sstream>
 
 class User {
 public:
@@ -20,12 +22,16 @@ public:
     User(const User& orig);
     virtual ~User();
     bool SignUp(char* msg);
-    bool LogIn();
+    bool LogIn(char *msg);
+    char* CheckToken(char* msg);
 private:
     std::pair<std::string,std::string> StrToPair(std::string str);
     std::map<std::string, std::string> users;
+    std::map<std::string, std::string> tokens;
     
-    const char* seed = "1fb39a31";
+    void WriteFile();
+    std::string CreateToken();
+    
     std::ifstream f_in;
     std::ofstream f_out;
 };

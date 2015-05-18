@@ -8,13 +8,17 @@
 #ifndef MESSAGEHANDLER_H
 #define	MESSAGEHANDLER_H
 #include <string>
+#include "User.h"
 
 class MessageHandler {
 public:
     MessageHandler();
     virtual ~MessageHandler();
-    static char* InputMessage(char* buffer);
-
+    char* InputMessage(char* buffer);
+    std::string CheckToken();
+private:
+    User *user;
+    
 };
 
 #endif	/* MESSAGEHANDLER_H */

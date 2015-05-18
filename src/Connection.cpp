@@ -9,6 +9,7 @@
 
 Connection::Connection() 
 {
+    messageHandler=new MessageHandler();
     clients.clear();
     listener=socket(AF_INET, SOCK_STREAM, 0);
     if (listener<0)
@@ -69,7 +70,8 @@ void Connection::MainCycle()
             if (FD_ISSET(*i, &readset))
             {
                 bytes_read = recv(*i, buffer, 1024, 0);
-                MessageHandler::InputMessage(buffer);
+                char* respond = messageHandler->InputMessage(buffer);
+                //MessageHandler::InputMessage(buffer);
                 std::cout<<"[RECV]::"<<buffer<<std::endl;
                 if (bytes_read<=0)
                 {
@@ -79,7 +81,8 @@ void Connection::MainCycle()
                     continue;
                 }
                 else
-                    send(*i, buffer, bytes_read,0);
+                    if (respond)
+                        send(*i, buffer, bytes_read,0);
             }
         }
     }

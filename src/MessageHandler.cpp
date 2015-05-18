@@ -7,7 +7,9 @@
 
 #include "MessageHandler.h"
 
-MessageHandler::MessageHandler() {
+MessageHandler::MessageHandler() 
+{
+    user=new User();
 }
 
 MessageHandler::~MessageHandler() {
@@ -15,14 +17,16 @@ MessageHandler::~MessageHandler() {
 
 char* MessageHandler::InputMessage(char* buffer)
 {
-    std::string temp;
+    std::string temp;   
+    char *value;
     temp=buffer;
     if (temp.substr(0,4)=="/msg")
     {
-        char *b;
-        b = (char*)temp.c_str();
-        return b;
+        return user->CheckToken(buffer);
     }
+    if (temp.substr(0,4)=="/reg")
+        return (char*)(user->SignUp(buffer)?"/reg 1":"/reg 0");
+    if (temp.substr(0,4)=="/log")
+        return (char*)(user->LogIn(buffer)?"/log1":"/log 0");
     else return NULL;
 }
-

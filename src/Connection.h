@@ -31,6 +31,7 @@ private:
     void SendToAll(char *msg);
     int bytes_read;
     std::set<int> clients;
+    MessageHandler *messageHandler;
 };
 
 
