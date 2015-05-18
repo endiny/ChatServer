@@ -22,7 +22,7 @@ public:
     User(const User& orig);
     virtual ~User();
     bool SignUp(char* msg);
-    bool LogIn(char *msg);
+    char* LogIn(char *msg);
     char* CheckToken(char* msg);
 private:
     std::pair<std::string,std::string> StrToPair(std::string str);

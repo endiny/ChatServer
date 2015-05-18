@@ -68,7 +68,7 @@ std::string User::CreateToken()
     return strm.str();
 }
 
-bool User::LogIn(char *msg)
+char* User::LogIn(char *msg)
 {
     std::pair<std::string,std::string> a(StrToPair(std::string(msg)));
     if (tokens.find(a.first)!=tokens.end())
@@ -80,7 +80,8 @@ bool User::LogIn(char *msg)
         return 0;
     a.second = CreateToken();
     tokens.insert(a);
-    return 1;
+    std::string ret="/tok "+a.second;
+    return (char*)(ret.c_str());
 }
 
 char* User::CheckToken(char* msg)
